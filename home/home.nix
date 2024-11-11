@@ -66,6 +66,10 @@
     # '')
   ];
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "google-chrome"
+  ];
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -97,10 +101,36 @@
   #
   #  /etc/profiles/per-user/kronos/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+home.sessionVariables = {
+    EDITOR = "nano";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "Tarik TIRE";
+    userEmail = "tarik@tire.fr";
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+  };
+
+  programs.gh = {
+    enable = true;
+    settings = {
+      aliases = {
+        pr = "pr create";
+        issue = "issue list";
+        ci = "workflow list";
+        co = "pr checkout";
+        re = "pr ready";
+      };
+      git_protocol = "ssh";
+    };
+  };
 }

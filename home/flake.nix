@@ -15,15 +15,24 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."kronos" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."krs" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # Specify your home configuration modules here, for example,
         # the path to your home.nix.
-        modules = [ ./home.nix ];
+        modules = [ 
+          ./home.nix
+          ./shell.nix
+        ];
 
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
       };
+
+      programs.zsh.enable = true;
+      users.users.krs.shell = pkgs.zsh;
+      environment.shells = with pkgs; [ zsh ];
+
+      programs.ssh.startAgent = true;
     };
 }

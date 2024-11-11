@@ -3,8 +3,8 @@
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "kronos";
-  home.homeDirectory = "/home/kronos";
+  home.username = "krs";
+  home.homeDirectory = "/home/krs";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -17,40 +17,62 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    neofetch
+    git
+    git-crypt
+    gzip
+    # neovim
+    # tmux
+    # gnupg
+    nix-index
+    nix-prefetch-git
+    cachix
+    # direnv
+    # jq
+    # fd
+    # ripgrep
+    gh
 
-    pkgs.git
-    pkgs.git-crypt
-    pkgs.gzip
-    # pkgs.neovim
-    # pkgs.tmux
-    pkgs.zsh
-    pkgs.wget
-    pkgs.curl
-    # pkgs.gnupg
-    pkgs.nix-index
-    pkgs.nix-prefetch-git
-    pkgs.cachix
-    # pkgs.direnv
-    # pkgs.jq
-    # pkgs.fd
-    # pkgs.ripgrep
-    # pkgs.bat
-    pkgs.fzf
-    pkgs.gh
+    # Kubernetes
+    kubectl
+    kubernetes-helm
+    k9s
+    kubeswitch
+    fluxctl 
 
-    pkgs.kubectl
-    pkgs.kubernetes-helm
-    pkgs.k9s
-    pkgs.kubeswitch
+    # Docker
+    lazydocker
 
-    pkgs.bun
+    # NATS
+    natscli
+    nats-top
+    nkeys
 
-    pkgs.jetbrains-mono
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    # Bun
+    nodejs_22
+    pnpm
+    yarn
+    bun
+
+    # Shell
+    # bash
+    direnv
+    zsh
+    curl
+    wget
+    eza
+    starship
+    bat
+    mdcat
+    tree
+    fzf
+
+    jetbrains-mono
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -76,7 +98,8 @@
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
+    ".ssh/config".source = ../ssh/config;
+    ".config/starship.toml".source = ../zsh/starship.toml;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -103,10 +126,12 @@
   #
 home.sessionVariables = {
     EDITOR = "nano";
+    XDG_CONFIG_HOME = "$HOME/.config";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.bash.enable = true;
 
   programs.git = {
     enable = true;
@@ -129,7 +154,9 @@ home.sessionVariables = {
         ci = "workflow list";
         co = "pr checkout";
         re = "pr ready";
+        as = "auth status";
       };
+      editor = "nano";
       git_protocol = "ssh";
     };
   };

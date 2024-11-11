@@ -1,0 +1,5 @@
+Host leo
+    HostName leo.i.mylabel.app
+    User tarik
+    IdentityFile ~/.ssh/id_rsa
+    LocalForward 27017 127.0.0.1:27017

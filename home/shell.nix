@@ -37,7 +37,6 @@ in {
   # Fancy filesystem navigator
 #   programs.broot = {
 #     enable = true;
-#     enableFishIntegration = true;
 #     enableZshIntegration = true;
 #   };
 
@@ -81,7 +80,14 @@ in {
     # Called whenever zsh is initialized
     initExtra = ''
       export TERM="xterm-256color"
-      bindkey -e
+      # bindkey -e
+
+      bindkey  "^[[H"   beginning-of-line
+      bindkey  "^[[F"   end-of-line
+      bindkey  "^[[3~"  delete-char
+
+      bindkey '^[[1;5D' backward-word
+      bindkey '^[[1;5C' forward-word
 
     #   # Nix setup (environment variables, etc.)
     #   if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
@@ -102,9 +108,6 @@ in {
       source <(kubectl completion zsh)
       source <(gh completion --shell zsh)
       source <(npm completion zsh)
-
-      # direnv setup
-      eval "$(direnv hook zsh)"
 
       # direnv hook
       eval "$(direnv hook zsh)"

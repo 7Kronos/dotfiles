@@ -18,9 +18,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+
     neofetch
     git
     git-crypt
@@ -100,6 +98,7 @@
     # # symlink to the Nix store copy.
     ".ssh/config".source = ../ssh/config;
     ".config/starship.toml".source = ../zsh/starship.toml;
+    ".config/wezterm/wezterm.lua".source = ../wezterm/wezterm.lua;
 
     # # You can also set the file content immediately.
     # ".gradle/gradle.properties".text = ''
@@ -124,7 +123,7 @@
   #
   #  /etc/profiles/per-user/kronos/etc/profile.d/hm-session-vars.sh
   #
-home.sessionVariables = {
+  home.sessionVariables = {
     EDITOR = "nano";
     XDG_CONFIG_HOME = "$HOME/.config";
   };

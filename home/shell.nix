@@ -13,7 +13,7 @@ let
     cat = "bat";
     we = "watchexec";
     ll = "ls -lh";
-    ls = "exa";
+    ls = "eza --icons=always";
     dk = "docker";
     k = "kubectl";
     dc = "docker-compose";
@@ -24,7 +24,7 @@ let
     szsh = "source ~/.zshrc";
 
     # Reload home manager and zsh
-    reload = "home-manager switch && source ~/.zshrc";
+    reload = "nix run home-manager -- switch --flake ~/dotfiles/home#krs && source ~/.zshrc";
 
     # Nix garbage collection
     garbage = "nix-collect-garbage -d";
@@ -89,6 +89,9 @@ in {
       bindkey '^[[1;5D' backward-word
       bindkey '^[[1;5C' forward-word
 
+      bindkey '^[[A' history-search-backward
+      bindkey '^[[B' history-search-forward
+
     #   # Nix setup (environment variables, etc.)
     #   if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
     #     . ~/.nix-profile/etc/profile.d/nix.sh
@@ -102,6 +105,8 @@ in {
 
       # Start up Starship shell
       eval "$(starship init zsh)"
+
+      eval "$(zoxide init zsh)"
 
       # Autocomplete for various utilities
       source <(helm completion zsh)

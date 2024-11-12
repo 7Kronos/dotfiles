@@ -18,9 +18,24 @@ local config = wezterm.config_builder()
 -- }
 config.default_domain = 'WSL:warp'
 
--- For example, changing the color scheme:
-config.font = wezterm.font 'JetBrains Mono'
-config.color_scheme = 'Night Owl (Gogh)'
+
+local night = wezterm.color.get_builtin_schemes()['Aura (Gogh)']
+-- night.background = 'red'
+
+config.color_schemes = {
+    ['My night'] = night
+  }
+
+config.color_scheme = 'My night'
+
+config.font = wezterm.font('JetBrains Mono', { weight = 'Medium' } )
+config.font_size = 13
+-- config.color_scheme = 'Aura (Gogh)'
+config.hide_tab_bar_if_only_one_tab = true
+config.window_decorations = 'RESIZE'
+config.window_background_opacity = 0.95
+config.macos_window_background_blur = 10
+
 
 -- Set the default working directory to the home directory
 config.default_cwd = "~/"

@@ -68,6 +68,7 @@
     mdcat
     tree
     fzf
+    zoxide
 
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })

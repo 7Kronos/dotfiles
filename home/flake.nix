@@ -15,18 +15,21 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."krs" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      homeConfigurations = {
+        "krs@BATTLESTAR" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ 
-          ./home.nix
-          ./shell.nix
-        ];
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ 
+            ./targets/warp.nix
+            ./home.nix
+            ./shell.nix
+          ];
 
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+        };
       };
 
       programs.zsh.enable = true;

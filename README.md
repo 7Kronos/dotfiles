@@ -1,5 +1,16 @@
 # Tarik's NixOS Setup
 
+## Install Nix
+
+```sh
+sh <(curl -L https://nixos.org/nix/install) --daemon
+
+# Add Nix experimental features
+
+echo "experimental-features = nix-command flakes" | sudo tee -a /etc/nix/nix.conf
+sudo systemctl restart nix-daemon.service
+```
+
 ## Home Manager
 
 ```sh

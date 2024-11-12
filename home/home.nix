@@ -45,6 +45,7 @@
     # Shell
     # bash
     direnv
+    btop
     zsh
     curl
     wget

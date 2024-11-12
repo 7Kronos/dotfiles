@@ -19,6 +19,7 @@ let
     dc = "docker-compose";
     md = "mdcat";
     hms = "nix run home-manager -- switch --flake ~/dotfiles/home#krs";
+    top = "btop --update 33";
 
     # Reload zsh
     szsh = "source ~/.zshrc";

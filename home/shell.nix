@@ -25,7 +25,7 @@ let
     szsh = "source ~/.zshrc";
 
     # Reload home manager and zsh
-    reload = "nix run home-manager -- switch --flake ~/dotfiles/home#krs && source ~/.zshrc";
+    reload = "nix run home-manager -- switch --flake ~/dotfiles/home && source ~/.zshrc";
 
     # Nix garbage collection
     garbage = "nix-collect-garbage -d";

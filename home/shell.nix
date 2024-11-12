@@ -16,6 +16,7 @@ let
     ls = "eza --icons=always";
     dk = "docker";
     k = "kubectl";
+    bb = "broot";
     dc = "docker-compose";
     md = "mdcat";
     hms = "nix run home-manager -- switch --flake ~/dotfiles/home#krs";
@@ -36,10 +37,10 @@ let
 in {
 
   # Fancy filesystem navigator
-#   programs.broot = {
-#     enable = true;
-#     enableZshIntegration = true;
-#   };
+  programs.broot = {
+    enable = true;
+    enableZshIntegration = true;
+  };
 
   programs.fzf = {
    enable = true;

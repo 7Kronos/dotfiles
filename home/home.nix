@@ -42,6 +42,9 @@
     yarn
     bun
 
+    # Dev
+    supabase-cli
+
     # Shell
     # bash
     direnv
@@ -56,6 +59,10 @@
     tree
     fzf
     zoxide
+    tmux
+    tmuxinator
+    tmux-xpanes
+    tmux-mem-cpu-load
 
     jetbrains-mono
     (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })

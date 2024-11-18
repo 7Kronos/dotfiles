@@ -43,7 +43,7 @@
     bun
 
     # Dev
-    supabase-cli
+    # supabase-cli too old
 
     # Shell
     # bash

@@ -36,11 +36,12 @@
     nats-top
     nkeys
 
-    # Bun
+    # dev
     nodejs_22
     pnpm
     yarn
     bun
+    flutter
 
     # Dev
     # supabase-cli too old

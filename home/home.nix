@@ -2,7 +2,10 @@
 
 {
   # The home.packages option allows you to install Nix packages into your
-  # environment.
+
+  nixpkgs.config.allowUnfreePredicate = (pkg: true);
+  nixpkgs.config.allowUnfree = true;
+
   home.packages = with pkgs; [
 
     neofetch
@@ -42,6 +45,7 @@
     yarn
     bun
     flutter
+    android-studio
 
     # Dev
     # supabase-cli too old
@@ -80,10 +84,6 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-  ];
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "google-chrome"
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

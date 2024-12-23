@@ -110,6 +110,9 @@ in {
 
       eval "$(zoxide init zsh)"
 
+      # fnm setup (environment variables, etc.)
+      eval "$(fnm env --use-on-cd --shell zsh)"
+
       # Autocomplete for various utilities
       source <(helm completion zsh)
       source <(kubectl completion zsh)

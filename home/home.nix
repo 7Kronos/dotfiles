@@ -37,7 +37,7 @@
     nkeys
 
     # Bun
-    nodejs_22
+    fnm
     pnpm
     yarn
     bun

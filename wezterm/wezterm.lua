@@ -16,7 +16,7 @@ local config = wezterm.config_builder()
 --     distribution = 'Ubuntu',
 --   },
 -- }
-config.default_domain = 'WSL:warp'
+-- config.default_domain = 'WSL:warp'
 
 
 local night = wezterm.color.get_builtin_schemes()['Aura (Gogh)']

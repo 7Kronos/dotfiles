@@ -13,7 +13,8 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      # pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs { system = "x86_64-linux"; config = { allowUnfree = true; }; };
     in {
       homeConfigurations = {
         "krs@BATTLESTAR" = home-manager.lib.homeManagerConfiguration {
@@ -30,6 +31,23 @@
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
         };
+
+        # Office Ezytail
+        "kronos@KRS" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ 
+            ./targets/ezytail.nix
+            ./home.nix
+            ./shell.nix
+          ];
+
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+        };
+
         "kronos@KRSBOOK" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
 

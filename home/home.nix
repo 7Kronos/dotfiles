@@ -45,7 +45,6 @@
     yarn
     bun
     flutter
-    android-studio
 
     # Dev
     # supabase-cli too old

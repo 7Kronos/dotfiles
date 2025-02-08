@@ -44,7 +44,7 @@
     pnpm
     yarn
     bun
-    flutter
+    # flutter
 
     # Dev
     # supabase-cli too old

@@ -33,6 +33,8 @@ let
 
     # See which Nix packages are installed
     installed = "nix-env --query --installed";
+
+    ks = "switch";
   };
 in {
 
@@ -124,7 +126,6 @@ in {
 
       # kubeswitch
       source <(switcher init zsh)
-      source <(alias ks=switch)
       source <(switch completion zsh)
     '';
   };

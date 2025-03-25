@@ -43,9 +43,9 @@ in {
   };
 
   programs.fzf = {
-   enable = true;
-   enableZshIntegration = true;
-#    defaultCommand = "${pkgs.ripgrep}/bin/rg --files";
+    enable = true;
+    enableZshIntegration = true;
+    #    defaultCommand = "${pkgs.ripgrep}/bin/rg --files";
   };
 
   # Set zsh as the default shell if the terminal is xterm, xterm-256color, or screen
@@ -121,6 +121,11 @@ in {
 
       # direnv hook
       eval "$(direnv hook zsh)"
+
+      # kubeswitch
+      source <(switcher init zsh)
+      source <(alias ks=switch)
+      source <(switch completion zsh)
     '';
   };
 

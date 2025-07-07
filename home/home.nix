@@ -29,7 +29,6 @@
     kubernetes-helm
     k9s
     kubeswitch
-    fluxctl 
 
     # Docker
     lazydocker
@@ -69,7 +68,9 @@
     tmux-mem-cpu-load
 
     jetbrains-mono
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+    pkgs.nerd-fonts.droid-sans-mono
+    pkgs.nerd-fonts.jetbrains-mono
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

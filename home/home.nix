@@ -45,6 +45,7 @@
     pnpm
     yarn
     bun
+    nodejs_24
     # flutter
 
     # Dev

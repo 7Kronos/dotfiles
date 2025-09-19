@@ -8,19 +8,21 @@
 
   home.packages = with pkgs; [
 
+    #ai
+    uv
+
     neofetch
     git
     git-crypt
     gzip
     # neovim
-    # tmux
     # gnupg
     nix-index
     nix-prefetch-git
     cachix
-    # direnv
-    # jq
-    # fd
+    direnv
+    jq
+    fd
     # ripgrep
     gh
 

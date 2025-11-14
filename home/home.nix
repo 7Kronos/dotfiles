@@ -45,8 +45,9 @@
     pnpm
     yarn
     bun
-    nodejs_24
+    nodePackages_latest.nodejs
     # flutter
+    flutter338
 
     # Dev
     # supabase-cli too old
@@ -69,6 +70,9 @@
     tmuxinator
     tmux-xpanes
     tmux-mem-cpu-load
+
+    # AI
+    # claude-code
 
     jetbrains-mono
     # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
@@ -137,8 +141,10 @@
 
   programs.git = {
     enable = true;
-    userName = "Tarik TIRE";
-    userEmail = "tarik@tire.fr";
+    settings.user = {
+      name = "Tarik TIRE";
+      email = "tarik@tire.fr";
+    };
   };
 
   programs.fzf = {

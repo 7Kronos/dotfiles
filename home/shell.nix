@@ -82,7 +82,7 @@ in {
     history.extended = true;
 
     # Called whenever zsh is initialized
-    initExtra = ''
+    initContent = ''
       export TERM="xterm-256color"
       # bindkey -e
 
@@ -113,6 +113,7 @@ in {
       eval "$(zoxide init zsh)"
 
       # fnm setup (environment variables, etc.)
+      fnm default 24
       eval "$(fnm env --use-on-cd --shell zsh)"
 
       # Autocomplete for various utilities

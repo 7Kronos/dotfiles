@@ -70,6 +70,7 @@
     tmuxinator
     tmux-xpanes
     tmux-mem-cpu-load
+    go-task
 
     # AI
     # claude-code

@@ -69,7 +69,7 @@
           # Specify your home configuration modules here, for example,
           # the path to your home.nix.
           modules = [ 
-            ./targets/book.nix
+            ./targets/klaw.nix
             ./home.nix
             ./shell.nix
           ];

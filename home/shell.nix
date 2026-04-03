@@ -25,6 +25,8 @@ let
     garbage = "nix-collect-garbage -d";
     installed = "nix-env --query --installed";
     ks = "switch";
+    tcode = "tmux new-session -A -s code";
+    tinfra = "tmux new-session -A -s infra";
   };
 in {
 

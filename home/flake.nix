@@ -62,6 +62,21 @@
           # Optionally use extraSpecialArgs
           # to pass through arguments to home.nix
         };
+
+        "admin@klaw" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+
+          # Specify your home configuration modules here, for example,
+          # the path to your home.nix.
+          modules = [ 
+            ./targets/book.nix
+            ./home.nix
+            ./shell.nix
+          ];
+
+          # Optionally use extraSpecialArgs
+          # to pass through arguments to home.nix
+        };
       };
 
       programs.zsh.enable = true;

@@ -1,8 +1,7 @@
 {
-  description = "Home Manager configuration of kronos";
+  description = "Home Manager configuration of Tarik";
 
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -13,76 +12,26 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
-      # pkgs = nixpkgs.legacyPackages.${system};
-      pkgs = import nixpkgs { system = "x86_64-linux"; config = { allowUnfree = true; }; };
+      pkgs = import nixpkgs { inherit system; config = { allowUnfree = true; }; };
+
+      mkHome = { username, homeDirectory }: home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [
+          {
+            home.username = username;
+            home.homeDirectory = homeDirectory;
+            home.stateVersion = "24.05";
+          }
+          ./home.nix
+          ./shell.nix
+        ];
+      };
     in {
       homeConfigurations = {
-        "krs@BATTLESTAR" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ 
-            ./targets/warp.nix
-            ./home.nix
-            ./shell.nix
-          ];
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-        };
-
-        # Office Ezytail
-        "kronos@KRS" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ 
-            ./targets/ezytail.nix
-            ./home.nix
-            ./shell.nix
-          ];
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-        };
-
-        "kronos@KRSBOOK" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ 
-            ./targets/book.nix
-            ./home.nix
-            ./shell.nix
-          ];
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-        };
-
-        "admin@klaw" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-
-          # Specify your home configuration modules here, for example,
-          # the path to your home.nix.
-          modules = [ 
-            ./targets/klaw.nix
-            ./home.nix
-            ./shell.nix
-          ];
-
-          # Optionally use extraSpecialArgs
-          # to pass through arguments to home.nix
-        };
+        "krs@BATTLESTAR"  = mkHome { username = "krs";    homeDirectory = "/home/krs"; };
+        "kronos@KRS"      = mkHome { username = "kronos"; homeDirectory = "/home/kronos"; };
+        "kronos@KRSBOOK"  = mkHome { username = "kronos"; homeDirectory = "/home/kronos"; };
+        "admin@klaw"      = mkHome { username = "admin";  homeDirectory = "/home/admin"; };
       };
-
-      programs.zsh.enable = true;
-      users.users.krs.shell = pkgs.zsh;
-      environment.shells = with pkgs; [ zsh ];
-
-      programs.ssh.startAgent = true;
     };
 }

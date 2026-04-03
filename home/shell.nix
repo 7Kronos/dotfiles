@@ -1,11 +1,9 @@
-# Shell configuration for zsh (frequently used) and fish (used just for fun)
+# Shell configuration for zsh
 
 { config, lib, pkgs, ... }:
 
 let
-  # Set all shell aliases programatically
   shellAliases = {
-    # Aliases for commonly used tools
     grep = "grep --color=auto";
     circleci = "circleci-cli";
     just = "just --no-dotenv";
@@ -19,38 +17,23 @@ let
     bb = "broot";
     dc = "docker-compose";
     md = "mdcat";
-    hms = "nix run home-manager -- switch --flake ~/dotfiles/home#krs";
+    lg = "lazygit";
     top = "btop --update 33";
-
-    # Reload zsh
+    hms = "home-manager switch --flake ~/dotfiles/home";
     szsh = "source ~/.zshrc";
-
-    # Reload home manager and zsh
-    reload = "nix run home-manager -- switch --flake ~/dotfiles/home && source ~/.zshrc";
-
-    # Nix garbage collection
+    reload = "home-manager switch --flake ~/dotfiles/home && source ~/.zshrc";
     garbage = "nix-collect-garbage -d";
-
-    # See which Nix packages are installed
     installed = "nix-env --query --installed";
-
     ks = "switch";
   };
 in {
 
-  # Fancy filesystem navigator
   programs.broot = {
     enable = true;
     enableZshIntegration = true;
   };
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-    #    defaultCommand = "${pkgs.ripgrep}/bin/rg --files";
-  };
-
-  # Set zsh as the default shell if the terminal is xterm, xterm-256color, or screen
+  # Set zsh as the default shell from bash
   programs.bash = {
     initExtra = ''
         if [ $TERM = "xterm" -o $TERM = "xterm-256color" -o $TERM = "screen" ] && type zsh &> /dev/null
@@ -66,64 +49,49 @@ in {
     '';
   };
 
-  # zsh settings
   programs.zsh = {
     inherit shellAliases;
     enable = true;
     autosuggestion = {
       enable = true;
+      strategy = [ "history" "completion" ];
     };
     history = {
-      size = 10000;
+      size = 50000;
+      save = 50000;
       path = "${config.xdg.dataHome}/zsh/history";
+      extended = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+      share = true;
     };
     enableCompletion = true;
     syntaxHighlighting.enable = true;
-    history.extended = true;
 
-    # Called whenever zsh is initialized
     initContent = ''
       export TERM="xterm-256color"
-      # bindkey -e
 
       bindkey  "^[[H"   beginning-of-line
       bindkey  "^[[F"   end-of-line
       bindkey  "^[[3~"  delete-char
-
       bindkey '^[[1;5D' backward-word
       bindkey '^[[1;5C' forward-word
-
       bindkey '^[[A' history-search-backward
       bindkey '^[[B' history-search-forward
 
-    #   # Nix setup (environment variables, etc.)
-    #   if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then
-    #     . ~/.nix-profile/etc/profile.d/nix.sh
-    #   fi
-
-      # Load environment variables from a file; this approach allows me to not
-      # commit secrets like API keys to Git
+      # Load environment variables from a file (secrets, API keys)
       if [ -e ~/.env ]; then
         . ~/.env
       fi
 
-      # Start up Starship shell
-      eval "$(starship init zsh)"
-
-      eval "$(zoxide init zsh)"
-
-      # fnm setup (environment variables, etc.)
-      fnm default 24
+      # fnm setup
+      fnm default 22
       eval "$(fnm env --use-on-cd --shell zsh)"
 
-      # Autocomplete for various utilities
+      # Autocomplete for tools without HM integration
       source <(helm completion zsh)
       source <(kubectl completion zsh)
-      source <(gh completion --shell zsh)
       source <(npm completion zsh)
-
-      # direnv hook
-      eval "$(direnv hook zsh)"
 
       # kubeswitch
       source <(switcher init zsh)

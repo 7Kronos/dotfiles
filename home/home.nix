@@ -1,35 +1,29 @@
 { config, pkgs, ... }:
 
 {
-  # The home.packages option allows you to install Nix packages into your
-
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
 
-    #ai
+    # AI
     uv
 
-    neofetch
-    git
+    # Core
+    fastfetch
     git-crypt
     gzip
-    # neovim
-    # gnupg
     nix-index
     nix-prefetch-git
     cachix
-    direnv
     jq
+    yq
     fd
-    # ripgrep
-    gh
+    ripgrep
 
     # Kubernetes
     kubectl
     kubernetes-helm
-    k9s
     kubeswitch
 
     # Docker
@@ -40,97 +34,40 @@
     nats-top
     nkeys
 
-    # Bun
+    # JS/TS
     fnm
     pnpm
     yarn
     bun
     nodePackages_latest.nodejs
-    # flutter
-    flutter338
-
-    # Dev
-    # supabase-cli too old
 
     # Shell
-    # bash
-    direnv
-    btop
     zsh
     curl
     wget
-    eza
-    starship
-    bat
     mdcat
     tree
-    fzf
-    zoxide
-    tmux
     tmuxinator
     tmux-xpanes
     tmux-mem-cpu-load
     go-task
+    lazygit
 
-    # AI
-    # claude-code
-
+    # Fonts
     jetbrains-mono
-    # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    pkgs.nerd-fonts.droid-sans-mono
-    pkgs.nerd-fonts.jetbrains-mono
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.jetbrains-mono
   ];
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
   home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    ".ssh/config".source = ../ssh/config;
     ".config/starship.toml".source = ../zsh/starship.toml;
     ".config/wezterm/wezterm.lua".source = ../wezterm/wezterm.lua;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
   };
 
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/kronos/etc/profile.d/hm-session-vars.sh
-  #
   home.sessionVariables = {
     EDITOR = "nano";
     XDG_CONFIG_HOME = "$HOME/.config";
@@ -140,19 +77,23 @@
   programs.home-manager.enable = true;
   programs.bash.enable = true;
 
+  # --- Managed programs (HM modules) ---
+
   programs.git = {
     enable = true;
-    settings.user = {
-      name = "Tarik TIRE";
-      email = "tarik@tire.fr";
+    settings = {
+      user = {
+        name = "Tarik TIRE";
+        email = "tarik@tire.fr";
+      };
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = true;
+      rerere.enable = true;
     };
   };
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-  };
+  programs.delta.enable = true;
 
   programs.gh = {
     enable = true;
@@ -168,5 +109,46 @@
       editor = "nano";
       git_protocol = "ssh";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.zoxide = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.bat.enable = true;
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    icons = "auto";
+  };
+
+  programs.btop.enable = true;
+
+  programs.k9s.enable = true;
+
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+    historyLimit = 10000;
+    mouse = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    defaultCommand = "fd --type f --hidden --follow --exclude .git";
+    defaultOptions = [ "--height 40%" "--layout=reverse" "--border" ];
+    fileWidgetCommand = "fd --type f --hidden --follow --exclude .git";
+    fileWidgetOptions = [ "--preview 'bat --style=numbers --color=always --line-range :500 {}'" ];
+    changeDirWidgetCommand = "fd --type d --hidden --follow --exclude .git";
   };
 }

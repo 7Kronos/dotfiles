@@ -101,7 +101,7 @@ in {
       source <(switcher init zsh)
       source <(switch completion zsh)
 
-      export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust"
+      # export SSL_CERT_DIR="$HOME/.aspnet/dev-certs/trust"
     '';
   };
 

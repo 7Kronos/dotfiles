@@ -20,6 +20,8 @@ let
     lg = "lazygit";
     top = "btop --update 33";
     hms = "home-manager switch --flake ~/dotfiles/home";
+    hmc = "nix flake check --no-build ~/dotfiles/home";
+    hmu = "nix flake update --flake ~/dotfiles/home && home-manager switch --flake ~/dotfiles/home && source ~/.zshrc";
     szsh = "source ~/.zshrc";
     reload = "home-manager switch --flake ~/dotfiles/home && source ~/.zshrc";
     garbage = "nix-collect-garbage -d";

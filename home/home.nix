@@ -57,6 +57,14 @@
     jetbrains-mono
     nerd-fonts.droid-sans-mono
     nerd-fonts.jetbrains-mono
+
+    # dotnet — SDKs 8 / 9 / 10 / 11 side-by-side
+    (with dotnetCorePackages; combinePackages [
+      sdk_8_0
+      sdk_9_0
+      sdk_10_0
+      sdk_11_0
+    ])
   ];
 
   home.file = {

@@ -66,6 +66,7 @@
 
   home.sessionPath = [
     "$HOME/.local/bin"
+    "$HOME/.dotnet/tools"
   ];
 
   home.sessionVariables = {

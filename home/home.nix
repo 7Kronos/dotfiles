@@ -39,7 +39,7 @@
     pnpm
     yarn
     bun
-    nodePackages_latest.nodejs
+    nodejs
 
     # Shell
     zsh

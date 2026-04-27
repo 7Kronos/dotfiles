@@ -20,7 +20,7 @@
           {
             home.username = username;
             home.homeDirectory = homeDirectory;
-            home.stateVersion = "24.05";
+            home.stateVersion = "25.05";
           }
           ./home.nix
           ./shell.nix

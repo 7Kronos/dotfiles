@@ -87,7 +87,7 @@ in {
       fi
 
       # fnm setup
-      fnm default 22
+      fnm default 24
       eval "$(fnm env --use-on-cd --shell zsh)"
 
       # Autocomplete for tools without HM integration
